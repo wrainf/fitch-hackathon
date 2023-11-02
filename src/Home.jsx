@@ -12,44 +12,46 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
 import placeholder from '../assets/placeholder.jpg';
 import arrowLeft from '../assets/arrowLeft.png';
 import arrowRight from '../assets/arrowRight.png';
+import events from '../assets/events';
+import EventDetails from './components/EventDetails';
 
 
 
+function HomeEvent({ title, currentIndex }) {
+  const [showEventDetails, setShowEventDetails] = useState(true);
 
-function HomeEvent({title}) {
+  const changeToDetails = () => {
+    setShowEventDetails(true);
+
+  }
+
+  const changeToSummary = () => {
+    setShowEventDetails(false);
+
+  }
+
   return (
     <ImageBackground source={placeholder} style={styles.image}>
-      <View style={styles.sectionContainer}>
-        <Text
-          style={styles.sectionTitle}>
-          {title}
-        </Text>
-        <Button
-          title="Learn more"
-          style={styles.sectionButton}
-        />
-      </View>
-    </ImageBackground>
-    
+      {showEventDetails ? (
+        <EventDetails index={currentIndex} closeFunction={changeToSummary}/>
+      ) : (
+          <View style={styles.sectionContainer} >
+            
+            <Text style={styles.sectionTitle}>{title.name} </Text>
+            <Button title="Learn more" style={styles.sectionButton} onPress={changeToDetails} />
+          </View>
+        
+      )}
+      </ImageBackground>
   );
 }
-
 
 function Home() {
   const height = Dimensions.get('window').height;
   const [currentIndex, setCurrentIndex] = useState(0);
-  const events = ['2022 Traditional Christmas Party', '2023 Traditional Christmas Party', '2024 Traditional Christmas Party'];
 
 
 
@@ -66,7 +68,7 @@ function Home() {
       <Text style={{ fontSize: 24, zIndex: 1, color: '#E82251', fontWeight: '700', marginTop: 28, marginLeft: 20 }}>
           Upcoming Events
         </Text>
-        <HomeEvent title={events[currentIndex]} />
+        <HomeEvent title={events[currentIndex]} currentIndex={currentIndex}/>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20, position: 'absolute', top: '50%', width: '100%' }}>
           <TouchableOpacity onPress={goToPreviousEvent}>
             <Image source={arrowLeft}/>
