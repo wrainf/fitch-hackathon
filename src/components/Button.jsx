@@ -1,10 +1,9 @@
 import { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { GlobalRed, GlobalGrey } from '../../GlobalStyles'
+import { GlobalRed, GlobalGrey, BackgroundColor } from '../../GlobalStyles'
 
 // Usage:
-// <Button title='hello' onPress={pressFunction} small={false} disabled/>
-
+// <Button title='Create Event' onPress={this.createEvent} disabled={this.state.disabled} hollow={true} />
 class GlobalButton extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +14,8 @@ class GlobalButton extends Component {
     const buttonStyle = [
       styles.button,
       {
-        backgroundColor: (this.props.disabled) ? GlobalGrey : GlobalRed, 
+        backgroundColor: (this.props.hollow) ? 'transparent' : (this.props.disabled) ? GlobalGrey : GlobalRed,
+        borderColor: (this.props.hollow) ? GlobalRed : 'transparent', 
         width: defaultWidth,
       }
     ]
