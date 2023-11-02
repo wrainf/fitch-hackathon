@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
 
 import React from 'react';
 import {
@@ -25,6 +19,8 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import Tickets from './src/Tickets.jsx';
+import Home from './src/Home';
+
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
