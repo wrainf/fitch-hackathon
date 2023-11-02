@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Pressable, Text, View, TextInput, StyleSheet, ScrollView } from "react-native";
 import Modal from "react-native-modal";
 
-function ModalTester() {
+function PaymentModal() {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const eventTitle = "2022 Traditional Christmas Party";
@@ -27,7 +27,7 @@ function ModalTester() {
         <Text style={{fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white'}}>1 x Adult</Text>
         <Text style={{flex: 1, fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white', textAlign: 'right', paddingRight: 5}}>{ticketPrice}</Text>
       </View>
-      <View style={{marginTop: 20, display: 'flex', flexDirection: 'row'}}>
+      <View style={{marginTop: 15, display: 'flex', flexDirection: 'row'}}>
         <Text style={{fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white'}}>Subtotal</Text>
         <Text style={{flex: 1, fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white', textAlign: 'right', paddingRight: 5}}>{subTotalPrice}</Text>
       </View>
@@ -41,7 +41,7 @@ function ModalTester() {
         <TextInput style={[styles.input]} value="Hello"/>
       </View>
       <View>
-        <Text style={styles.inputTitle}>EMAIL ADDRESS*</Text>
+        <Text style={styles.inputTitle}>PHONE NUMBER*</Text>
         <TextInput style={[styles.input]} value="Hello"/>
       </View>
     </View>
@@ -60,9 +60,9 @@ function ModalTester() {
   };
 
   return (
-    <View style={{ flex: 1, borderColor:'red'}}>
+    <View style={{ flex: 1}}>
       <Button title="Show modal" onPress={toggleModal} />
-      <Modal isVisible={isModalVisible} style={{margin: 0}}>
+      <Modal isVisible={isModalVisible} style={{margin: 0, paddingTop: 15}}>
         <View style={{ flex: 1, height: '100%', flexDirection: 'column'}}>
           <Text style={{height: '6%', fontSize: 25, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: "#E82251"}}>Payment</Text>
           <ScrollView style={{flex:1, alignSelf:'stretch', backgroundColor: 'black', display: 'flex', flexDirection: 'column', paddingBottom: 20}}>
@@ -122,6 +122,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ModalTester;
+export default PaymentModal;
 
 // borderColor:'red',borderBottomWidth:1,borderTopWidth:1,
