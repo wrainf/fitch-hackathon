@@ -1,0 +1,15 @@
+{ 
+  "name":"2023” Christmas Fundraising Event",
+  "datetime": "2023-12-16T18:00:00Z",
+  "locationPlusCode": "GRG8+6F London",
+  "tickets": [ 
+               { "type": 1,
+                 "price": 5.0,
+                 "currency": "GBP" 
+               }, 
+               { "type": 2,
+                 "price": 10.0,
+                 "currency": "GBP"
+               }
+             ]
+}
