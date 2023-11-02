@@ -21,22 +21,20 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 70
+    paddingBottom: 70,
+    paddingLeft: 50,
+    paddingRight: 50
   },
   thankyouText: {
     color: '#E82251',
     fontWeight: '800',
     fontSize: 30,
     marginTop: 20,
-    width: '100%',
-    paddingLeft: 50,
-    paddingRight: 50
+    width: '100%'
   },
   viewOtherWrapper: {
     marginTop: 20,
-    width: '100%',
-    paddingLeft: 50,
-    paddingRight: 50,
+    width: '100%'
   },
   viewOtherText: {
     color: 'white',
