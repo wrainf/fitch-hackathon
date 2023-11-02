@@ -80,8 +80,6 @@ function PaymentModal() {
 
 
 const styles = StyleSheet.create({
-  // textBold: {
-  // },
   input: {
     height: 40,
     margin: 12,
