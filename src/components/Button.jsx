@@ -15,7 +15,7 @@ class GlobalButton extends Component {
       styles.button,
       {
         backgroundColor: (this.props.hollow) ? 'transparent' : (this.props.disabled) ? GlobalGrey : GlobalRed,
-        borderColor: (this.props.hollow) ? GlobalRed : 'transparent', 
+        borderColor: (this.props.disabled) ? GlobalGrey : GlobalRed, 
         width: defaultWidth,
       }
     ]
