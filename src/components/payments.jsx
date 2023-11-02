@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Pressable, Text, View, TextInput, StyleSheet } from "react-native";
+import { Button, Pressable, Text, View, TextInput, StyleSheet, ScrollView } from "react-native";
 import Modal from "react-native-modal";
 
 function ModalTester() {
@@ -9,6 +9,52 @@ function ModalTester() {
   const ticketPrice = "£65.00";
   const subTotalPrice = "£135.00"
 
+  const EventTitle = (
+    <View style={{height: 'auto', marginTop: 10}}>
+      <Text style={{fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'grey'}}>Event</Text>
+      <Text style={{fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white'}}>{eventTitle}</Text>
+    </View>
+  );
+
+  const OrderDetails = (
+    <View style={{marginTop: 20}}>
+      <Text style={{fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'grey'}}>Order Details</Text>
+      <View style={{display: 'flex', flexDirection: 'row'}}>
+        <Text style={{flex: 1, fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white'}}>1 x Adult</Text>
+        <Text style={{flex: 1, fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white', textAlign: 'right', paddingRight: 5}}>{ticketPrice}</Text>
+      </View>
+      <View style={{display: 'flex', flexDirection: 'row'}}>
+        <Text style={{fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white'}}>1 x Adult</Text>
+        <Text style={{flex: 1, fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white', textAlign: 'right', paddingRight: 5}}>{ticketPrice}</Text>
+      </View>
+      <View style={{marginTop: 20, display: 'flex', flexDirection: 'row'}}>
+        <Text style={{fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white'}}>Subtotal</Text>
+        <Text style={{flex: 1, fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white', textAlign: 'right', paddingRight: 5}}>{subTotalPrice}</Text>
+      </View>
+    </View>
+  );
+
+  const PersonalDetailInputs = (
+    <View style={{marginTop: 40, display: 'flex', flexDirection: 'column'}}>
+      <View>
+        <Text style={styles.inputTitle}>EMAIL ADDRESS*</Text>
+        <TextInput style={[styles.input]} value="Hello"/>
+      </View>
+      <View>
+        <Text style={styles.inputTitle}>EMAIL ADDRESS*</Text>
+        <TextInput style={[styles.input]} value="Hello"/>
+      </View>
+    </View>
+  );
+
+  const PurchaseButton = (
+    <View style={{marginTop: 30}}>
+      <Pressable style={styles.TEMPORARYbutton}>
+        <Text style={styles.TEMPORARYbuttontext}>{`Buy now - ${subTotalPrice}`}</Text>
+      </Pressable>
+    </View>
+  );
+
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -16,53 +62,22 @@ function ModalTester() {
   return (
     <View style={{ flex: 1, borderColor:'red'}}>
       <Button title="Show modal" onPress={toggleModal} />
-      <Modal isVisible={isModalVisible} style={{marginLeft: 0, marginRight: 0}}>
-        <View style={{ flex: 1, flexDirection: 'column'}}>
+      <Modal isVisible={isModalVisible} style={{margin: 0}}>
+        <View style={{ flex: 1, height: '100%', flexDirection: 'column'}}>
           <Text style={{height: '6%', fontSize: 25, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: "#E82251"}}>Payment</Text>
-          <View style={{flex:1, alignSelf:'stretch', backgroundColor: 'black', display: 'flex', flexDirection: 'column'}}>
-            <View style={{height: 'auto'}}>
-              <Text style={{fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'grey'}}>Event</Text>
-              <Text style={{fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white'}}>{eventTitle}</Text>
-            </View>
-            <View style={{marginTop: 20}}>
-              <Text style={{fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'grey'}}>Order Details</Text>
-              <View style={{display: 'flex', flexDirection: 'row'}}>
-                <Text style={{flex: 1, fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white'}}>1 x Adult</Text>
-                <Text style={{flex: 1, fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white', textAlign: 'right', paddingRight: 5}}>{ticketPrice}</Text>
-              </View>
-              <View style={{display: 'flex', flexDirection: 'row'}}>
-                <Text style={{fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white'}}>1 x Adult</Text>
-                <Text style={{flex: 1, fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white', textAlign: 'right', paddingRight: 5}}>{ticketPrice}</Text>
-              </View>
-              <View style={{marginTop: 20, display: 'flex', flexDirection: 'row'}}>
-                <Text style={{fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white'}}>Subtotal</Text>
-                <Text style={{flex: 1, fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white', textAlign: 'right', paddingRight: 5}}>{subTotalPrice}</Text>
-              </View>
-            </View>
-            {/* Personal details input */}
-            <View style={{marginTop: 40, display: 'flex', flexDirection: 'column'}}>
-              <View>
-                <Text style={styles.inputTitle}>EMAIL ADDRESS*</Text>
-                <TextInput style={[styles.input]} value="Hello"/>
-              </View>
-              <View>
-                <Text style={styles.inputTitle}>EMAIL ADDRESS*</Text>
-                <TextInput style={[styles.input]} value="Hello"/>
-              </View>
-            </View>
-            {/* PurchaseButton */}
-            <View style={{marginTop: 30}}>
-              <Pressable style={styles.TEMPORARYbutton}>
-                <Text style={styles.TEMPORARYbuttontext}>{`Buy now - ${subTotalPrice}`}</Text>
-              </Pressable>
-            </View>
-          </View>
+          <ScrollView style={{flex:1, alignSelf:'stretch', backgroundColor: 'black', display: 'flex', flexDirection: 'column', paddingBottom: 20}}>
+            {EventTitle}
+            {OrderDetails}
+            {PersonalDetailInputs}
+            {PurchaseButton}
+          </ScrollView>
           {/* <Button title="Payment" onPress={toggleModal} /> */}
         </View>
       </Modal>
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   // textBold: {
