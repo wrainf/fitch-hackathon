@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Animated, Easing, StyleSheet } from 'react-native';
+import { GlobalWhite } from '../../GlobalStyles'
 
 class WavingHandEmoji extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class WavingHandEmoji extends Component {
       useNativeDriver: true,
     }).start(() => {
       this.animateHandWave()
-      })
+    })
   }
 
   animateHandWave = () => {
@@ -46,7 +47,7 @@ class WavingHandEmoji extends Component {
     return (
       <View style={styles.container}>
         <Animated.Text style={[styles.emoji, animatedStyle]}>✋</Animated.Text>
-        <Text style={{fontSize: 25, paddingLeft: 5}}>{this.props.name}!</Text>
+        <Text style={{fontSize: 25, paddingLeft: 5, color: GlobalWhite}}>{this.props.name}!</Text>
       </View>
     );
   }

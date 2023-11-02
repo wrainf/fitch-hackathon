@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet } from 'react-native';
-import { GlobalRed } from './GlobalStyles'
+import { GlobalRed } from '../../GlobalStyles'
 
 // Usage: <PageTitle title='Events' />
 
