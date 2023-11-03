@@ -108,20 +108,20 @@ function PaymentModal({cancelTicket, event}) {
 
   return (
     <View style={{ flex: 1}}>
-      <Modal isVisible={isModalVisible} style={{margin: 0, paddingTop: 15}}>
+      <Modal isVisible={isModalVisible} style={{margin: 0, paddingTop: 15,  backgroundColor: 'black'}}>
         <View style={{ flex: 1, height: '100%', flexDirection: 'column'}}>
           <Text style={{height: '6%', fontSize: 25, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: "#E82251"}}>Payment</Text>
-          <ScrollView style={{flex:1, alignSelf:'stretch', backgroundColor: 'black', display: 'flex', paddingBottom: 20}}>
+          <ScrollView style={{flex:1, alignSelf:'stretch', display: 'flex', paddingBottom: 20}}>
             {EventTitle}
             {OrderDetails}
             {PersonalDetailInputs}
-            <View style={{gap: 10}}>
-              {(isValidEmail(email) && isValidPhoneNumber(phone)) ? <GlobalButton title={`Buy now - £${total}`} /> : <GlobalButton disabled title={`Buy now - £${total}`} />}
-              
-              <GlobalButton title="Cancel" onPress={toggleModal} />
-            </View>
+            
           
           </ScrollView>
+          <View style={{gap: 10}}>
+              {(isValidEmail(email) && isValidPhoneNumber(phone)) ? <GlobalButton title={`Buy now - £${total}`} /> : <GlobalButton disabled title={`Buy now - £${total}`} />}
+              <GlobalButton title="Cancel" onPress={toggleModal} />
+            </View>
           
         </View>
       </Modal>
