@@ -3,6 +3,7 @@ import { Button, Pressable, Text, View, TextInput, StyleSheet, ScrollView, Touch
 import Modal from "react-native-modal";
 import GlobalButton from './Button';
 import InputField from "./InputField";
+import PaymentSuccess from "./paymentSucess";
 
 
 function TicketOrder({price, type, subtotal, setSubtotal}) {
@@ -57,6 +58,8 @@ function TicketSection({tickets, setSubtotal, subtotal}){
 
 function PaymentModal({cancelTicket, event}) {
   const [isModalVisible, setModalVisible] = useState(true);
+  const [isPaymentSuccessful, setisPaymentSuccessful] = useState(false);
+  const [paymentSucess, setPaymentSuccess] = useState(true);
   const [total, setTotal] = useState(0);
   const [email, setEmail] = useState(null)
   const [phone, setPhone] = useState(null)
@@ -108,7 +111,7 @@ function PaymentModal({cancelTicket, event}) {
 
   return (
     <View style={{ flex: 1}}>
-      <Modal isVisible={isModalVisible} style={{margin: 0, paddingTop: 15,  backgroundColor: 'black'}}>
+      {!isPaymentSuccessful ? ( <Modal isVisible={isModalVisible} style={{margin: 0, paddingTop: 15,  backgroundColor: 'black'}}>
         <View style={{ flex: 1, height: '100%', flexDirection: 'column'}}>
           <Text style={{height: '6%', fontSize: 25, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: "#E82251"}}>Payment</Text>
           <ScrollView style={{flex:1, alignSelf:'stretch', display: 'flex', paddingBottom: 20}}>
@@ -119,12 +122,18 @@ function PaymentModal({cancelTicket, event}) {
           
           </ScrollView>
           <View style={{gap: 10}}>
-              {(isValidEmail(email) && isValidPhoneNumber(phone)) ? <GlobalButton title={`Buy now - £${total}`} /> : <GlobalButton disabled title={`Buy now - £${total}`} />}
+              {(isValidEmail(email) && isValidPhoneNumber(phone) && total > 0) ? <GlobalButton onPress={() => setisPaymentSuccessful(true)} title={`Buy now - £${total}`} /> : <GlobalButton disabled title={`Buy now - £${total}`} />}
               <GlobalButton title="Cancel" onPress={toggleModal} />
-            </View>
+          </View>
           
         </View>
-      </Modal>
+      </Modal>):
+      <Modal isVisible={paymentSucess}>
+        <TouchableOpacity  onPress={() => {setPaymentSuccess(false); setisPaymentSuccessful(false); setTotal(0)}}>
+          <PaymentSuccess/>
+          </TouchableOpacity>
+          </Modal>}
+     
     </View>
   );
 }
