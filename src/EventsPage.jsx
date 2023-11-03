@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import PageTitle from './components/PageTitle';
 import events from '../assets/events';
-
+import cancel from '../assets/close.png';
+import PaymentModal from './components/payments';
+import GlobalButton from './components/Button';
+const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 function formatEventDateTime(datetime) {
   const eventDate = new Date(datetime);
 
-  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   const dayOfWeek = daysOfWeek[eventDate.getDay()];
@@ -28,35 +30,76 @@ function formatEventDateTime(datetime) {
   };
 }
 
+function EventDetails({event, closeFunction}) {
+  const date = new Date(event.datetime)
+  const [isBuying, setIsBuying] = useState(false)
+
+  function buyTickets() {
+    setIsBuying(true)
+  }
+
+  function cancelTickets() {
+      setIsBuying(false)
+  }
+
+  return (
+    <>
+          <View style={styles.overlay}>
+            <View style={{alignItems:'flex-end', width:'100%'}}>
+
+              <TouchableOpacity onPress={closeFunction}>
+              <Image source={cancel} style={{}} />
+            </TouchableOpacity>
+            </View>
+            <Text style={styles.sectionTitle}>{event.name}</Text>
+            <Text style={styles.sectionDescription}>{event.description}</Text>
+            <Text style={styles.sectionDescription}>{`${daysOfWeek[date.getDay()]} - ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`}</Text>
+            <Text style={styles.sectionDescription}>{event.locationPlusCode}</Text>
+            <View style={{marginTop: 10}}>
+             <GlobalButton title="Buy tickets" onPress={buyTickets} />
+            </View>
+            {isBuying && <PaymentModal cancelTicket={cancelTickets} event={event}/>}
+          </View>
+    </>
+  )
+}
+
+const EventCard = ({index}) => {
+  const formattedDateTime = formatEventDateTime(events[index].datetime);
+  const [showDetails, setShowDetails] = useState(false);
+
+  return(<View style={styles.eventBox} key={index}>
+    <View style={styles.upperSection}>
+      <Image
+        source={require('../assets/backgroundImage.png')}
+        style={styles.backgroundImage}
+      />
+      <Text style={styles.eventTitle}>{events[index].name}</Text>
+    </View>
+    <View style={styles.lowerSection}>
+      <View style={styles.leftInfo}>
+        <Text style={styles.dateText}>{formattedDateTime.date}</Text>
+        <Text style={styles.timeText}>{formattedDateTime.time}</Text>
+      </View>
+      <TouchableOpacity
+        style={styles.detailsButton}
+        onPress={() => {
+          setShowDetails(true)
+        }}
+      >
+        <Text style={styles.buttonText}>More Details {">"} </Text>
+      </TouchableOpacity>
+    </View>
+    {showDetails && (<EventDetails event={events[index]} closeFunction={() => setShowDetails(false)}/>)}
+  </View>)
+}
+
 
 const EventPage = () => {
   var eventElements = []
   for (let i = 0; i < events.length; i++) {
-    const formattedDateTime = formatEventDateTime(events[i].datetime);
     eventElements.push(
-      <View style={styles.eventBox} key={i}>
-        <View style={styles.upperSection}>
-          <Image
-            source={require('../assets/backgroundImage.png')}
-            style={styles.backgroundImage}
-          />
-          <Text style={styles.eventTitle}>{events[i].name}</Text>
-        </View>
-        <View style={styles.lowerSection}>
-          <View style={styles.leftInfo}>
-            <Text style={styles.dateText}>{formattedDateTime.date}</Text>
-            <Text style={styles.timeText}>{formattedDateTime.time}</Text>
-          </View>
-          <TouchableOpacity
-            style={styles.detailsButton}
-            onPress={() => {
-              // Add navigation logic to the 'book ticket' page here
-            }}
-          >
-            <Text style={styles.buttonText}>More Details {">"} </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      <EventCard index={i}/>
     )
   }
   return (
@@ -140,6 +183,41 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
+  sectionContainer: {
+    backgroundColor: '#090909',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 20,
+    padding: 10
+
+   },
+   subsectionContainer:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: '#090909',
+    padding: 10
+   },
+   sectionDescription: {
+    marginTop: 8,
+    fontSize: 14,
+    fontWeight: '700',
+    lineHeight: 20,
+    color: '#666666'
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#F5F5F7',
+  },
+  overlay:{
+    backgroundColor: 'black',
+    padding: 10,
+    marginBottom: 20,
+    position: 'absolute',
+    width: '100%',
+    height: '100%'
+  }
 });
 
 export default EventPage;
