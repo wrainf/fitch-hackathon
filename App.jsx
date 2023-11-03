@@ -22,7 +22,7 @@ import { useState } from 'react';
 
 import Tickets from './src/Tickets.jsx';
 import Home from './src/Home';
-import EventPage from './src/EventsPage.js';
+import EventPage from './src/EventsPage.jsx';
 import NavBarIcon from './src/components/NavBarIcon.jsx';
 
 import homeFocused from './assets/homeFocused.png'
@@ -36,6 +36,8 @@ import tickets from './assets/tickets.png'
 
 import profileFocused from './assets/profileFocused.png'
 import profile from './assets/profile.png'
+import ProfilePage from './src/ProfilePage.jsx';
+import { BackgroundColor } from './GlobalStyles.js';
 
 
 const App = () => {
@@ -48,10 +50,8 @@ const App = () => {
       return <EventPage />;
     } else if (currentScreen === 'Tickets') {
       return <Tickets />;
-    }
-    else if (currentScreen === 'Profile') {
-      // TODO: change to profile
-      return <Tickets />;
+    } else if (currentScreen === 'Profile') {
+      return <ProfilePage />;
     }
   };
 
@@ -83,6 +83,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
+    backgroundColor: BackgroundColor,
   },
   bottomNav: {
     flexDirection: 'row',
