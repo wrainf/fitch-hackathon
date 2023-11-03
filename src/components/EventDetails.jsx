@@ -36,10 +36,12 @@ function EventDetails({index, closeFunction}) {
 
     return (
       <View style={styles.sectionContainer}>
-          <TouchableOpacity onPress={closeFunction} style={styles.imageWrapper}>
-             <Image source={cancel} style={styles.image} />
+          <TouchableOpacity onPress={closeFunction} style={styles.aboveOverlay}>
           </TouchableOpacity>
           <View style={styles.overlay}>
+            <TouchableOpacity onPress={closeFunction} style={styles.imageWrapper}>
+              <Image source={cancel} style={styles.image} />
+            </TouchableOpacity>
             
             <Text style={styles.sectionTitle}>{event.name}</Text>
             <Text style={styles.sectionDescription}>{event.description}</Text>
@@ -57,13 +59,21 @@ function EventDetails({index, closeFunction}) {
       overlay:{
           backgroundColor: '#090909',
           position: 'absolute',
-          height: '70%',
+          height: '80%',
           width: '100%',
           bottom: 0,
           zIndex: 1,
           padding: 10,
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          borderTopEndRadius: 15,
+          borderTopStartRadius: 15,
       },
+    aboveOverlay: {
+      height: '20%',
+      width:'100%',
+      zIndex: 2,
+      bottom: '40%',
+    },
     sectionContainer: {
       flex: 1,
       justifyContent: 'center',
@@ -72,13 +82,16 @@ function EventDetails({index, closeFunction}) {
       backgroundColor: 'rgba(0,0,0,0.7)',
     },
     sectionTitle: {
-      fontSize: 24,
+      fontSize: 22,
+      marginHorizontal: 15,
+      marginTop: '12%',
       fontWeight: '600',
       color: '#f5f5f7',
       textAlign: 'left',
     },
     sectionDescription: {
       marginTop: 8,
+      marginHorizontal: 15,
       fontSize: 14,
       fontWeight: '700',
       lineHeight: 20,
