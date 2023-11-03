@@ -17,6 +17,7 @@ import arrowRight from '../assets/arrowRight.png';
 import events from '../assets/events';
 import EventDetails from './components/EventDetails';
 import GlobalButton from './components/Button';
+import PageTitle from './components/PageTitle';
 
 
 
@@ -24,9 +25,7 @@ function HomeEvent({ title, currentIndex, changeToDetails, changeToSummary, show
 
   return (
     <ImageBackground source={placeholder} style={styles.image}>
-         <Text style={{ fontSize: 24, color: '#E82251', fontWeight: '700', padding: 20 , backgroundColor: 'rgba(0,0,0,0.7)'}}>
-          Upcoming Events
-        </Text>
+      <PageTitle title='Upcoming Events' viewStyle={{backgroundColor: 'rgba(0,0,0,0.7)'}}/>
       {showEventDetails ? (
         <EventDetails index={currentIndex} closeFunction={changeToSummary}/>
       ) : (

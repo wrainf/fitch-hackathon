@@ -25,6 +25,7 @@
  import { useState } from 'react';
  import cancel from '../assets/close.png'
  import shape from '../assets/Shape.png'
+import PageTitle from './components/PageTitle';
 
 const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
@@ -91,8 +92,7 @@ function TicketDetails({event, closeFunction}) {
    return (
      
      <View style={styles.backgroundStyle}>
-     <Text style={{fontSize: 24, color: '#E82251', fontWeight: 'bold',backgroundColor:'#090909', marginBottom: 20}}>My tickets</Text>
-     
+     <PageTitle title='My Tickets' />
      {events.length > 0 ? 
        <ScrollView
          
