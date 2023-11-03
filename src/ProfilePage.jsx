@@ -99,7 +99,6 @@ const styles = StyleSheet.create({
   inputSection: {
     width: '80%',
     marginTop: '6%',
-    marginBottom: '%',
   },
   inputLabel: {
     fontSize: 16,
