@@ -4,6 +4,7 @@ import Modal from "react-native-modal";
 import GlobalButton from './Button';
 import InputField from "./InputField";
 import PaymentSuccess from "./paymentSucess";
+import { getStorageValue, storeValue } from "../services/LocalStorage";
 
 
 function TicketOrder({price, type, subtotal, setSubtotal}) {
@@ -78,6 +79,14 @@ function PaymentModal({cancelTicket, event}) {
     return phoneRegex.test(phoneNumber);
   }
 
+  async function buyTickets() {
+    setisPaymentSuccessful(true)
+    let tickets = await getStorageValue('tickets');
+    if (tickets == '' || tickets == null)
+      tickets = []
+    tickets.push(event);
+    await storeValue('tickets', tickets);
+  }
 
   const EventTitle = (
     <View style={{height: 'auto', marginTop: 10}}>
@@ -122,7 +131,7 @@ function PaymentModal({cancelTicket, event}) {
           
           </ScrollView>
           <View style={{gap: 10}}>
-              {(isValidEmail(email) && isValidPhoneNumber(phone) && total > 0) ? <GlobalButton onPress={() => setisPaymentSuccessful(true)} title={`Buy now - £${total}`} /> : <GlobalButton disabled title={`Buy now - £${total}`} />}
+              {(isValidEmail(email) && isValidPhoneNumber(phone) && total > 0) ? <GlobalButton onPress={buyTickets} title={`Buy now - £${total}`} /> : <GlobalButton disabled title={`Buy now - £${total}`} />}
               <GlobalButton title="Cancel" onPress={toggleModal} />
           </View>
           
