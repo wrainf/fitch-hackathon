@@ -29,7 +29,7 @@ class InputField extends Component {
         borderWidth: (this.props.box) ? 1 : 0,
         borderBottomWidth: (this.state.editing) ? 1 : 0,
         paddingHorizontal: (this.props.box) ? 10 : 0,
-        borderColor: (this.state.valid) ? 'lightgreen' : (this.props.box) ? GlobalRed : GlobalWhite
+        borderColor: (this.state.valid) ? 'lightgreen' : (this.state.invalid) ? GlobalRed : GlobalWhite
       }
     ];
 
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     height: 50,
     marginLeft: 10,
     marginTop: 2,
-    marginBottom: 20,
+    marginBottom: 5,
     color: GlobalWhite,
     fontSize: 18,
     width: '85%',
