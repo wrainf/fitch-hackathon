@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { Button, Pressable, Text, View, TextInput, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import Modal from "react-native-modal";
+import GlobalButton from './Button';
+import InputField from "./InputField";
+
 
 function TicketOrder({price, type, subtotal, setSubtotal}) {
   const [amount, setAmount] = useState(0)
   const [total, setTotal] = useState(0)
+
 
   function addAmount() {
     const nextAmount = amount + 1
@@ -54,9 +58,22 @@ function TicketSection({tickets, setSubtotal, subtotal}){
 function PaymentModal({cancelTicket, event}) {
   const [isModalVisible, setModalVisible] = useState(true);
   const [total, setTotal] = useState(0);
+  const [email, setEmail] = useState(null)
+  const [phone, setPhone] = useState(null)
 
   const eventTitle = event.name;
   const tickets = event.tickets;
+
+  function isValidEmail(email) {
+    // Regular expression for a valid email address
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    return emailRegex.test(email);
+  }
+  function isValidPhoneNumber(phoneNumber) {
+    // Regular expression to validate phone numbers with optional country code and no delimiters
+    const phoneRegex = /^(\+?\d{1,3})?(\d{10})$/;
+    return phoneRegex.test(phoneNumber);
+  }
 
 
   const EventTitle = (
@@ -77,25 +94,12 @@ function PaymentModal({cancelTicket, event}) {
   );
 
   const PersonalDetailInputs = (
-    <View style={{marginTop: 40, display: 'flex', flexDirection: 'column'}}>
-      <View>
-        <Text style={styles.inputTitle}>EMAIL ADDRESS*</Text>
-        <TextInput style={[styles.input]} value="Hello"/>
-      </View>
-      <View>
-        <Text style={styles.inputTitle}>PHONE NUMBER*</Text>
-        <TextInput style={[styles.input]} value="Hello"/>
-      </View>
+    <View style={{marginTop: 40, marginBottom: 20}}>
+      <InputField title='EMAIL' placeholder='Enter your email' writeTo={setEmail} checkValid={isValidEmail} invalidText='Please enter a valid email' box={true} />
+      <InputField title='PHONE NUMBER' placeholder='Enter your phone number' writeTo={setPhone} checkValid={isValidPhoneNumber} invalidText='Please enter a valid phone number' box={true} />
     </View>
   );
 
-  const PurchaseButton = (
-    <View style={{marginTop: 30}}>
-      <Pressable style={styles.TEMPORARYbutton}>
-        <Text style={styles.TEMPORARYbuttontext}>{`Buy now - £${total}`}</Text>
-      </Pressable>
-    </View>
-  );
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -107,12 +111,16 @@ function PaymentModal({cancelTicket, event}) {
       <Modal isVisible={isModalVisible} style={{margin: 0, paddingTop: 15}}>
         <View style={{ flex: 1, height: '100%', flexDirection: 'column'}}>
           <Text style={{height: '6%', fontSize: 25, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: "#E82251"}}>Payment</Text>
-          <ScrollView style={{flex:1, alignSelf:'stretch', backgroundColor: 'black', display: 'flex', flexDirection: 'column', paddingBottom: 20}}>
+          <ScrollView style={{flex:1, alignSelf:'stretch', backgroundColor: 'black', display: 'flex', paddingBottom: 20}}>
             {EventTitle}
             {OrderDetails}
             {PersonalDetailInputs}
-            {PurchaseButton}
-            <Button title="Cancel" onPress={toggleModal} />
+            <View style={{gap: 10}}>
+              {(isValidEmail(email) && isValidPhoneNumber(phone)) ? <GlobalButton title={`Buy now - £${total}`} /> : <GlobalButton disabled title={`Buy now - £${total}`} />}
+              
+              <GlobalButton title="Cancel" onPress={toggleModal} />
+            </View>
+          
           </ScrollView>
           
         </View>

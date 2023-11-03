@@ -16,6 +16,8 @@ import events from '../../assets/events';
 
 import cancel from '../../assets/close.png'
 import PaymentModal from './payments';
+import GlobalButton from './Button';
+
 
 function EventDetails({index, closeFunction}) {
     const event = events[index];
@@ -42,7 +44,7 @@ function EventDetails({index, closeFunction}) {
             <Text style={styles.sectionDescription}>{event.description}</Text>
             <Text style={styles.sectionDescription}>{`${days[date.getDay()]} - ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`}</Text>
             <Text style={styles.sectionDescription}>{event.locationPlusCode}</Text>
-            <Button title="Buy tickets" onPress={buyTickets} />
+            <GlobalButton title="Buy tickets" onPress={buyTickets} />
             {isBuying && <PaymentModal cancelTicket={cancelTickets} event={event}/>}
           </View>
       </View>
@@ -58,6 +60,7 @@ function EventDetails({index, closeFunction}) {
           bottom: 0,
           zIndex: 1,
           padding: 10,
+          justifyContent: 'space-between'
       },
     sectionContainer: {
       flex: 1,
@@ -95,7 +98,7 @@ function EventDetails({index, closeFunction}) {
         width: 36,
         top: 20,
         right: 20,
-      }
+      },
   });
 
 export default EventDetails;
