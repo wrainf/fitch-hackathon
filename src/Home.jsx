@@ -5,7 +5,6 @@ import {
   Text,
   useColorScheme,
   Image,
-  Button,
   View,
   Dimensions,
   ImageBackground,
@@ -17,6 +16,7 @@ import arrowLeft from '../assets/arrowLeft.png';
 import arrowRight from '../assets/arrowRight.png';
 import events from '../assets/events';
 import EventDetails from './components/EventDetails';
+import GlobalButton from './components/Button';
 
 
 
@@ -33,7 +33,7 @@ function HomeEvent({ title, currentIndex, changeToDetails, changeToSummary, show
           <View style={styles.sectionContainer} >
             
             <Text style={styles.sectionTitle}>{title.name} </Text>
-            <Button title="Learn more" style={styles.sectionButton} onPress={changeToDetails} />
+            <GlobalButton small title="Learn more" style={styles.sectionButton} onPress={changeToDetails} />
           </View>
         
       )}

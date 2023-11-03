@@ -41,9 +41,10 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 16,
     color: 'white',
     padding: 10,
+    fontWeight: '700',
   }
 })
 
