@@ -29,6 +29,7 @@ class InputField extends Component {
         borderWidth: (this.props.box) ? 1 : 0,
         borderBottomWidth: (this.state.editing || this.props.box) ? 1 : 0,
         paddingHorizontal: (this.props.box) ? 10 : 0,
+        width: (this.props.box) ? '95%' : '85%',
         borderColor: (this.state.valid) ? 'lightgreen' : (this.state.invalid) ? GlobalRed : GlobalWhite
       }
     ];
@@ -47,7 +48,7 @@ class InputField extends Component {
             onPressIn={() => this.setState({ editing: true })}
             onSubmitEditing={() => this.setState({ editing: false })}
           />
-          <Text style={styles.icon}>✏️</Text>
+          {!this.props.box && <Text style={styles.icon}>✏️</Text>}
         </View>
         {this.state.invalid ? (
           <Text style={styles.invalidText}>{this.props.invalidText}</Text>
@@ -67,7 +68,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     color: GlobalWhite,
     fontSize: 18,
-    width: '85%',
   },
   title: {
     color: GlobalRed,
