@@ -39,9 +39,10 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   title: {
-    fontSize: 24,
+    fontSize: 16,
     color: 'white',
     padding: 10,
+    fontWeight: '700',
   }
 })
 
