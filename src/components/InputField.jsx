@@ -27,7 +27,7 @@ class InputField extends Component {
       styles.input, 
       {
         borderWidth: (this.props.box) ? 1 : 0,
-        borderBottomWidth: (this.state.editing) ? 1 : 0,
+        borderBottomWidth: (this.state.editing || this.props.box) ? 1 : 0,
         paddingHorizontal: (this.props.box) ? 10 : 0,
         borderColor: (this.state.valid) ? 'lightgreen' : (this.state.invalid) ? GlobalRed : GlobalWhite
       }
