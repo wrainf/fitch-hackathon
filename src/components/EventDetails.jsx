@@ -15,24 +15,35 @@ import {
 import events from '../../assets/events';
 
 import cancel from '../../assets/close.png'
+import PaymentModal from './payments';
 
 function EventDetails({index, closeFunction}) {
     const event = events[index];
     const date = new Date(event.datetime)
+    const [isBuying, setIsBuying] = useState(false)
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
+    function buyTickets() {
+        setIsBuying(true)
+    }
+
+    function cancelTickets() {
+        setIsBuying(false)
+    }
 
     return (
       <View style={styles.sectionContainer}>
-          
           <TouchableOpacity onPress={closeFunction} style={styles.imageWrapper}>
              <Image source={cancel} style={styles.image} />
           </TouchableOpacity>
           <View style={styles.overlay}>
+            
             <Text style={styles.sectionTitle}>{event.name}</Text>
             <Text style={styles.sectionDescription}>{event.description}</Text>
             <Text style={styles.sectionDescription}>{`${days[date.getDay()]} - ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`}</Text>
             <Text style={styles.sectionDescription}>{event.locationPlusCode}</Text>
-            <Button title="Buy tickets" />
+            <Button title="Buy tickets" onPress={buyTickets} />
+            {isBuying && <PaymentModal cancelTicket={cancelTickets} event={event}/>}
           </View>
       </View>
     );
