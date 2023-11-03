@@ -99,7 +99,7 @@ const EventPage = () => {
   var eventElements = []
   for (let i = 0; i < events.length; i++) {
     eventElements.push(
-      <EventCard index={i}/>
+      <EventCard key={i} index={i}/>
     )
   }
   return (

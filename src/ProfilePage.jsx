@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import Button from './components/Button'
 import InputField from './components/InputField'
 import PageTitle from './components/PageTitle'
 import { getStorageValue, storeValue } from './services/LocalStorage'
+import profile from '../assets/Icon.png'
 
 const ProfilePage = () => {
   const [email, setEmail] = useState('');
@@ -41,7 +42,8 @@ const ProfilePage = () => {
   return (
     <View style={styles.container}>
       <PageTitle title='Profile' styles={{paddingLeft: 30}}/>
-      <Text style={styles.personIcon}>👤</Text>
+      <Image source={profile} style={{width: '30%', aspectRatio:'1/1.1'}}/>
+
       <View style={styles.inputs}>
       <View style={styles.inputSection}>
         <InputField 
@@ -90,8 +92,8 @@ const styles = StyleSheet.create({
     color: '#E82251',
   },
   personIcon: {
-    paddingTop: '20%',
-    fontSize: 100,
+    width: '910',
+    aspectRatio: '1/1'
     // Insert styles for the person icon here
   },
 

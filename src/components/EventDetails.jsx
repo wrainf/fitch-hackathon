@@ -22,6 +22,7 @@ import GlobalButton from './Button';
 function EventDetails({index, closeFunction}) {
     const event = events[index];
     const date = new Date(event.datetime)
+    const currentDate = new Date();
     const [isBuying, setIsBuying] = useState(false)
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
@@ -44,7 +45,8 @@ function EventDetails({index, closeFunction}) {
             <Text style={styles.sectionDescription}>{event.description}</Text>
             <Text style={styles.sectionDescription}>{`${days[date.getDay()]} - ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`}</Text>
             <Text style={styles.sectionDescription}>{event.locationPlusCode}</Text>
-            <GlobalButton title="Buy tickets" onPress={buyTickets} />
+            {currentDate < date ? <GlobalButton title="Buy tickets" onPress={buyTickets} /> : <GlobalButton title="Event ended" disabled />}
+            
             {isBuying && <PaymentModal cancelTicket={cancelTickets} event={event}/>}
           </View>
       </View>
