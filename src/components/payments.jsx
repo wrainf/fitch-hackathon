@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Pressable, Text, View, TextInput, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import Modal from "react-native-modal";
 import GlobalButton from './Button';
@@ -62,11 +62,24 @@ function PaymentModal({cancelTicket, event}) {
   const [isPaymentSuccessful, setisPaymentSuccessful] = useState(false);
   const [paymentSucess, setPaymentSuccess] = useState(true);
   const [total, setTotal] = useState(0);
-  const [email, setEmail] = useState(null)
-  const [phone, setPhone] = useState(null)
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
 
   const eventTitle = event.name;
   const tickets = event.tickets;
+
+  const [retrieved, setRetrieved] = useState(false);
+
+  useEffect(() => {
+    const retrieveData = async () => {
+      setEmail(await getStorageValue('email'));
+      setPhone(await getStorageValue('phone'));
+    }
+    if (!retrieved) {
+      retrieveData();
+      setRetrieved(true)
+    }
+  })
 
   function isValidEmail(email) {
     // Regular expression for a valid email address
@@ -107,8 +120,8 @@ function PaymentModal({cancelTicket, event}) {
 
   const PersonalDetailInputs = (
     <View style={{marginTop: 40, marginBottom: 20}}>
-      <InputField title='EMAIL' placeholder='Enter your email' writeTo={setEmail} checkValid={isValidEmail} invalidText='Please enter a valid email' box={true} />
-      <InputField title='PHONE NUMBER' placeholder='Enter your phone number' writeTo={setPhone} checkValid={isValidPhoneNumber} invalidText='Please enter a valid phone number' box={true} />
+      <InputField title='EMAIL' placeholder='Enter your email' writeTo={setEmail} checkValid={isValidEmail} invalidText='Please enter a valid email' box={true} text={email}/>
+      <InputField title='PHONE NUMBER' placeholder='Enter your phone number' writeTo={setPhone} checkValid={isValidPhoneNumber} invalidText='Please enter a valid phone number' box={true} text={phone}/>
     </View>
   );
 
