@@ -5,7 +5,7 @@
  * @format
  */
 
- import React from 'react';
+ import React, { useEffect } from 'react';
  import {
    Image,
    SafeAreaView,
@@ -21,11 +21,11 @@
 
  import arrow from '../assets/arrowRight.png'
  import place from '../assets/placeholder.jpg'
- import events from '../assets/events';
  import { useState } from 'react';
  import cancel from '../assets/close.png'
  import shape from '../assets/Shape.png'
 import PageTitle from './components/PageTitle';
+import { getStorageValue } from './services/LocalStorage';
 
 const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
@@ -89,6 +89,18 @@ function TicketDetails({event, closeFunction}) {
  }
 
  function Tickets(){
+    const [events, setEvents] = useState([]);
+    useEffect(() => {
+      const getTickets = async () => {
+        let tickets = await getStorageValue('tickets');
+        if (tickets === null || tickets === '') {
+          tickets = []
+        }
+        setEvents(tickets);
+      }
+      getTickets();
+    })
+    
    return (
      
      <View style={styles.backgroundStyle}>
