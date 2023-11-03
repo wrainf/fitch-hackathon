@@ -5,7 +5,6 @@ import {
   Text,
   useColorScheme,
   Image,
-  Button,
   View,
   Dimensions,
   ImageBackground,
@@ -13,7 +12,7 @@ import {
 } from 'react-native';
 
 import events from '../../assets/events';
-
+import Button from './Button'
 import cancel from '../../assets/close.png'
 import PaymentModal from './payments';
 
@@ -31,6 +30,7 @@ function EventDetails({index, closeFunction}) {
         setIsBuying(false)
     }
 
+    const currentdate = new Date()
     return (
       <View style={styles.sectionContainer}>
           <TouchableOpacity onPress={closeFunction} style={styles.imageWrapper}>
@@ -42,8 +42,10 @@ function EventDetails({index, closeFunction}) {
             <Text style={styles.sectionDescription}>{event.description}</Text>
             <Text style={styles.sectionDescription}>{`${days[date.getDay()]} - ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`}</Text>
             <Text style={styles.sectionDescription}>{event.locationPlusCode}</Text>
-            <Button title="Buy tickets" onPress={buyTickets} />
             {isBuying && <PaymentModal cancelTicket={cancelTickets} event={event}/>}
+            {date < currentdate ? <Text style = {{padding:10 ,color: '#E82251',alignSelf:'center',fontSize:24,fontWeight:'500'}}>Event Ended</Text> :
+            <Button title="Buy tickets" onPress={buyTickets} />
+            }
           </View>
       </View>
     );
