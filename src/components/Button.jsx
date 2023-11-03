@@ -15,7 +15,7 @@ class GlobalButton extends Component {
       styles.button,
       {
         backgroundColor: (this.props.hollow) ? 'transparent' : (this.props.disabled) ? GlobalGrey : GlobalRed,
-        borderColor: (this.props.hollow) ? GlobalRed : 'transparent', 
+        borderColor: (this.props.disabled) ? GlobalGrey : GlobalRed,
         width: defaultWidth,
       }
     ]
@@ -33,10 +33,12 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     borderRadius: 10,
+    borderWidth: 2
   },
   container: {
     alignContent: 'center',
     alignItems:'center',
+    margin: 20,
   },
   title: {
     fontSize: 24,
