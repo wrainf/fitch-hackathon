@@ -1,21 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Button from './components/Button'
 import InputField from './components/InputField'
 import PageTitle from './components/PageTitle'
+import { getStorageValue, storeValue } from './services/LocalStorage'
 
 const ProfilePage = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [retrieved, setRetrieved] = useState(false);
 
-  const saveProfile = () => {
-    if (validateEmail(email) && validatePhone(phone))
-      saveUserEmailAndPhone(email, phone);
+  const saveProfile = async () => {
+    if (validateEmail(email) && validatePhone(phone)) {
+      await storeValue('email', email);
+      await storeValue('phone', phone);
+    }
   };
 
-  const saveUserEmailAndPhone = (email, phone) => {
-
-  }
+  useEffect(() => {
+    const retrieveData = async () => {
+      setEmail(await getStorageValue('email'));
+      setPhone(await getStorageValue('phone'));
+    }
+    if (!retrieved) {
+      retrieveData();
+      setRetrieved(true)
+    }
+  })
 
   const validateEmail = (email) => {
     // Simple email validation, you can add a more comprehensive check
@@ -60,7 +71,7 @@ const ProfilePage = () => {
 
 const styles = StyleSheet.create({
   inputs:{
-    marginBottom: 30,
+    marginBottom: 5,
     alignItems: 'center',
     width: '100%',
   },
@@ -79,7 +90,7 @@ const styles = StyleSheet.create({
     color: '#E82251',
   },
   personIcon: {
-    paddingTop: '40%',
+    paddingTop: '20%',
     fontSize: 100,
     // Insert styles for the person icon here
   },
