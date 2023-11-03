@@ -5,6 +5,7 @@ import GlobalButton from './Button';
 import InputField from "./InputField";
 import PaymentSuccess from "./paymentSucess";
 import { getStorageValue, storeValue } from "../services/LocalStorage";
+import PageTitle from "./PageTitle";
 
 
 function TicketOrder({price, type, subtotal, setSubtotal}) {
@@ -106,7 +107,7 @@ function PaymentModal({cancelTicket, event}) {
       <Text style={{fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'grey'}}>Event</Text>
       <Text style={{fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white'}}>{eventTitle}</Text>
     </View>
-  );
+  )
 
   const OrderDetails = (
     <View style={{marginTop: 20}}>
@@ -135,7 +136,7 @@ function PaymentModal({cancelTicket, event}) {
     <View style={{ flex: 1}}>
       {!isPaymentSuccessful ? ( <Modal isVisible={isModalVisible} style={{margin: 0, paddingTop: 15,  backgroundColor: 'black'}}>
         <View style={{ flex: 1, height: '100%', flexDirection: 'column'}}>
-          <Text style={{height: '6%', fontSize: 25, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: "#E82251"}}>Payment</Text>
+          <PageTitle title='Payment' />
           <ScrollView style={{flex:1, alignSelf:'stretch', display: 'flex', paddingBottom: 20}}>
             {EventTitle}
             {OrderDetails}

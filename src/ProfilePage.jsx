@@ -42,7 +42,7 @@ const ProfilePage = () => {
   return (
     <View style={styles.container}>
       <PageTitle title='Profile' styles={{paddingLeft: 30}}/>
-      <Image source={profile} style={{width: '30%', aspectRatio:'1/1.1'}}/>
+      <Image source={profile} style={{width: '30%', aspectRatio:'1/1.1', marginVertical: '12%'}}/>
 
       <View style={styles.inputs}>
       <View style={styles.inputSection}>
