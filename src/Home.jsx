@@ -20,21 +20,13 @@ import EventDetails from './components/EventDetails';
 
 
 
-function HomeEvent({ title, currentIndex }) {
-  const [showEventDetails, setShowEventDetails] = useState(true);
-
-  const changeToDetails = () => {
-    setShowEventDetails(true);
-
-  }
-
-  const changeToSummary = () => {
-    setShowEventDetails(false);
-
-  }
+function HomeEvent({ title, currentIndex, changeToDetails, changeToSummary, showEventDetails }) {
 
   return (
     <ImageBackground source={placeholder} style={styles.image}>
+         <Text style={{ fontSize: 24, color: '#E82251', fontWeight: '700', padding: 20 , backgroundColor: 'rgba(0,0,0,0.7)'}}>
+          Upcoming Events
+        </Text>
       {showEventDetails ? (
         <EventDetails index={currentIndex} closeFunction={changeToSummary}/>
       ) : (
@@ -52,6 +44,17 @@ function HomeEvent({ title, currentIndex }) {
 function Home() {
   const height = Dimensions.get('window').height;
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showEventDetails, setShowEventDetails] = useState(false);
+
+  const changeToDetails = () => {
+    setShowEventDetails(true);
+
+  }
+
+  const changeToSummary = () => {
+    setShowEventDetails(false);
+
+  }
 
 
 
@@ -64,19 +67,17 @@ function Home() {
   };
 
   return (
-    <View style={{ height: height }}>
-      <Text style={{ fontSize: 24, zIndex: 1, color: '#E82251', fontWeight: '700', marginTop: 28, marginLeft: 20 }}>
-          Upcoming Events
-        </Text>
-        <HomeEvent title={events[currentIndex]} currentIndex={currentIndex}/>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20, position: 'absolute', top: '50%', width: '100%' }}>
+    <View style={{ flex: 1 }}>
+        <HomeEvent title={events[currentIndex]} showEventDetails={showEventDetails} currentIndex={currentIndex} changeToDetails={changeToDetails} changeToSummary={changeToSummary}/>
+        {!showEventDetails && ( <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20, position: 'absolute', top: '50%', width: '100%' }}>
           <TouchableOpacity onPress={goToPreviousEvent}>
             <Image source={arrowLeft}/>
           </TouchableOpacity>
           <TouchableOpacity onPress={goToNextEvent}>
             <Image source={arrowRight} />
           </TouchableOpacity>
-        </View>
+        </View>)}
+       
       
     </View>
   );

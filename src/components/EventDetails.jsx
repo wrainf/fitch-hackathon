@@ -17,7 +17,6 @@ import events from '../../assets/events';
 import cancel from '../../assets/close.png'
 
 function EventDetails({index, closeFunction}) {
-    const height = Dimensions.get('window').height;
     const event = events[index];
     const date = new Date(event.datetime)
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -55,7 +54,6 @@ function EventDetails({index, closeFunction}) {
       alignItems: 'center',
       gap: 60,
       backgroundColor: 'rgba(0,0,0,0.7)',
-      zIndex: 1,
     },
     sectionTitle: {
       fontSize: 24,
