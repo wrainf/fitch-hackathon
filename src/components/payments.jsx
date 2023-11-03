@@ -1,13 +1,63 @@
 import React, { useState } from "react";
-import { Button, Pressable, Text, View, TextInput, StyleSheet, ScrollView } from "react-native";
+import { Button, Pressable, Text, View, TextInput, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import Modal from "react-native-modal";
 
-function PaymentModal() {
-  const [isModalVisible, setModalVisible] = useState(false);
+function TicketOrder({price, type, subtotal, setSubtotal}) {
+  const [amount, setAmount] = useState(0)
+  const [total, setTotal] = useState(0)
 
-  const eventTitle = "2022 Traditional Christmas Party";
-  const ticketPrice = "£65.00";
-  const subTotalPrice = "£135.00"
+  function addAmount() {
+    const nextAmount = amount + 1
+    const nextTotal = price * nextAmount
+    setAmount(nextAmount)
+    setTotal(nextTotal)
+    setSubtotal(subtotal + price)
+  }
+
+  function reduceAmount() {
+    const nextAmount = amount - 1
+    if(nextAmount >= 0) {
+      const nextTotal = price * nextAmount
+      setAmount(nextAmount)
+      setTotal(nextTotal)
+      setSubtotal(subtotal - price)
+    }
+   
+  }
+
+
+
+  return (<View style={{display: 'flex', flexDirection: 'row'}}>
+
+    <Text style={{flex: 1, fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white'}}>
+      {amount} x {type}
+    </Text>
+
+  
+ 
+  <Text style={{flex: 1, fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white', textAlign: 'right', paddingRight: 5}}>£{total}</Text>
+  <TouchableOpacity onPress={reduceAmount}>
+    <Text style={{flex: 1, fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white', textAlign: 'right', paddingRight: 5}}>-</Text>
+  </TouchableOpacity>
+  <TouchableOpacity onPress={addAmount}>
+    <Text style={{flex: 1, fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white', textAlign: 'right', paddingRight: 5}}>+</Text>
+  </TouchableOpacity>
+
+</View>)
+
+}
+
+function TicketSection({tickets, setSubtotal, subtotal}){
+  return(<>{tickets.map((ticket, index) =>  (<TicketOrder key={index + ticket.price} subtotal={subtotal} setSubtotal={setSubtotal} price={ticket.price} type={ticket.type}/>))}</>)
+}
+
+function PaymentModal({cancelTicket, event}) {
+  const [isModalVisible, setModalVisible] = useState(true);
+  const [total, setTotal] = useState(0);
+
+  const eventTitle = event.name;
+  const tickets = event.tickets;
+
 
   const EventTitle = (
     <View style={{height: 'auto', marginTop: 10}}>
@@ -18,18 +68,10 @@ function PaymentModal() {
 
   const OrderDetails = (
     <View style={{marginTop: 20}}>
-      <Text style={{fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'grey'}}>Order Details</Text>
-      <View style={{display: 'flex', flexDirection: 'row'}}>
-        <Text style={{flex: 1, fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white'}}>1 x Adult</Text>
-        <Text style={{flex: 1, fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white', textAlign: 'right', paddingRight: 5}}>{ticketPrice}</Text>
-      </View>
-      <View style={{display: 'flex', flexDirection: 'row'}}>
-        <Text style={{fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white'}}>1 x Adult</Text>
-        <Text style={{flex: 1, fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white', textAlign: 'right', paddingRight: 5}}>{ticketPrice}</Text>
-      </View>
+      <TicketSection tickets={tickets} setSubtotal={setTotal} subtotal={total}/>
       <View style={{marginTop: 15, display: 'flex', flexDirection: 'row'}}>
         <Text style={{fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white'}}>Subtotal</Text>
-        <Text style={{flex: 1, fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white', textAlign: 'right', paddingRight: 5}}>{subTotalPrice}</Text>
+        <Text style={{flex: 1, fontSize: 20, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: 'white', textAlign: 'right', paddingRight: 5}}>£{total}</Text>
       </View>
     </View>
   );
@@ -50,18 +92,18 @@ function PaymentModal() {
   const PurchaseButton = (
     <View style={{marginTop: 30}}>
       <Pressable style={styles.TEMPORARYbutton}>
-        <Text style={styles.TEMPORARYbuttontext}>{`Buy now - ${subTotalPrice}`}</Text>
+        <Text style={styles.TEMPORARYbuttontext}>{`Buy now - £${total}`}</Text>
       </Pressable>
     </View>
   );
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
+    cancelTicket()
   };
 
   return (
     <View style={{ flex: 1}}>
-      <Button title="Show modal" onPress={toggleModal} />
       <Modal isVisible={isModalVisible} style={{margin: 0, paddingTop: 15}}>
         <View style={{ flex: 1, height: '100%', flexDirection: 'column'}}>
           <Text style={{height: '6%', fontSize: 25, fontWeight: '800', marginTop: 10, paddingLeft: 10, color: "#E82251"}}>Payment</Text>
@@ -70,8 +112,9 @@ function PaymentModal() {
             {OrderDetails}
             {PersonalDetailInputs}
             {PurchaseButton}
+            <Button title="Cancel" onPress={toggleModal} />
           </ScrollView>
-          {/* <Button title="Payment" onPress={toggleModal} /> */}
+          
         </View>
       </Modal>
     </View>

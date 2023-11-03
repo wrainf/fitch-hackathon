@@ -89,7 +89,7 @@ function TicketDetails({event, closeFunction}) {
 
  function Tickets(){
    return (
-     <>
+     
      <View style={styles.backgroundStyle}>
      <Text style={{fontSize: 24, color: '#E82251', fontWeight: 'bold',backgroundColor:'#090909', marginBottom: 20}}>My tickets</Text>
      
@@ -108,7 +108,7 @@ function TicketDetails({event, closeFunction}) {
      }
      </View>
      
-     </>
+
     
    );
  }

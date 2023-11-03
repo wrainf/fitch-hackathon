@@ -4,11 +4,11 @@ export default events = [{
   "locationPlusCode": "GRG8+6F London",
   "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
   "tickets": [ 
-               { "type": 1,
+               { "type": "Adult",
                  "price": 5.0,
                  "currency": "GBP" 
                }, 
-               { "type": 2,
+               { "type": "Child",
                  "price": 10.0,
                  "currency": "GBP"
                }
@@ -19,11 +19,11 @@ export default events = [{
   "locationPlusCode": "GRG8+6F London",
   "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
   "tickets": [ 
-               { "type": 1,
+               { "type": "Adult",
                  "price": 5.0,
                  "currency": "GBP" 
                }, 
-               { "type": 2,
+               { "type": "Child",
                  "price": 10.0,
                  "currency": "GBP"
                }
@@ -34,11 +34,11 @@ export default events = [{
   "locationPlusCode": "GRG8+6F London",
   "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
   "tickets": [ 
-               { "type": 1,
+               { "type": "Adult",
                  "price": 5.0,
                  "currency": "GBP" 
                }, 
-               { "type": 2,
+               { "type": "Child",
                  "price": 10.0,
                  "currency": "GBP"
                }
