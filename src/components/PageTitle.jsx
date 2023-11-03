@@ -11,17 +11,19 @@ class PageTitle extends Component {
 
   render() {
     return (
-      <Text style={styles.title}>{this.props.title}</Text>
+      <Text style={[styles.title, this.props.styles]}>{this.props.title}</Text>
     )
   }
 }
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 18,
+    fontSize: 24,
     color: GlobalRed,
     fontWeight: 'bold',
-    padding: 10
+    padding: 10,
+    marginTop: 50,
+    alignSelf: 'flex-start',
   }
 })
 
